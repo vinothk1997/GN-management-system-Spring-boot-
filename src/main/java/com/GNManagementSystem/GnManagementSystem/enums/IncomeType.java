@@ -1,0 +1,14 @@
+package com.GNManagementSystem.GnManagementSystem.enums;
+
+public enum IncomeType {
+    EMPLOYMENT_INCOME,
+    BUSINESS_INCOME,
+    RENTAL_INCOME,
+    INVESTMENT_INCOME,
+    AGRICULTURAL_INCOME,
+    CAPITAL_GAINS,
+    FOREIGN_INCOME,
+    PENSION_INCOME,
+    TOURISM_INCOME,
+    OTHER_INCOME
+}

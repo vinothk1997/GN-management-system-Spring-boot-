@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Certificate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            border: 2px solid black;
+            max-width: 700px;
+        }
+        h2 {
+            text-align: center;
+            text-decoration: underline;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .signature {
+            margin-top: 40px;
+            text-align: right;
+        }
+        .stamp {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<p style="text-align: right">Serial No:</p>
+<h2>CHARACTER CERTIFICATE</h2>
+
+<p><strong>Grama Niladhari Division:</strong> <span th:text="${gsDivision}"></span></p>
+<p><strong>Divisional Secretariat:</strong> <span th:text="${dsDivision}"></span></p>
+<p><strong>Date:</strong> <span th:text="${date}"></span></p>
+
+<div class="details">
+    <p>TO WHOM IT MAY CONCERN,</p>
+    <p>This is to certify that <strong><span th:text="${fullName}"></span></strong>, holder of National Identity Card (NIC) No. <strong><span th:text="${nic}"></span></strong>, son/daughter of <strong><span th:text="${fatherName}"></span></strong> and <strong><span th:text="${motherName}"></span></strong>, residing at <strong><span th:text="${address}"></span></strong>, has been a resident of <strong><span th:text="${village}"></span></strong> for the past <strong><span th:text="${years}"></span></strong> years.</p>
+
+    <p>During this period, his/her conduct and behavior have been <strong><span th:text="${behavior}"></span></strong>, and there have been no known records of involvement in unlawful or anti-social activities.</p>
+
+    <p>This certificate is issued upon the request of the applicant for <strong><span th:text="${purpose}"></span></strong>.</p>
+</div>
+
+<div class="signature">
+    <p><strong>Grama Niladhari Details:</strong></p>
+    <p><strong>Name:</strong> <span th:text="${gnName}"></span></p>
+    <p>
+        <img th:width="100" th:height="50"
+             th:src="@{'https://oemyuditovikjonyccon.supabase.co/storage/v1/object/public/gn-management-system/ca6e6e85-48b1-4e96-a79a-f6b90f598d28_sample.jpg'}"
+             alt="Grama Niladhari Signature">
+    </p>
+
+    <strong>Signature:</strong>
+</div>
+
+<p><small>Note: This certificate is issued based on available records and community verification. Any misuse of this certificate shall be the responsibility of the applicant. <strong>To verify this certificate follow th link www.GNPortal.com/certificate-verification<strong</small></p>
+</body>
+</html>

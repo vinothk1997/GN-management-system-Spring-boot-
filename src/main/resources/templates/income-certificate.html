@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Income Certificate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .certificate {
+            border: 2px solid #000;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .user-info {
+            margin-bottom: 20px;
+        }
+        .user-info p {
+            margin: 5px 0;
+        }
+        .income-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .income-table th, .income-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        .income-table th {
+            background-color: #f2f2f2;
+        }
+        .footer {
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="certificate">
+    <!-- Header -->
+    <div class="header">
+        INCOME CERTIFICATE
+    </div>
+
+    <!-- User Information -->
+    <div class="user-info">
+        <p><strong>Name:</strong> <span th:text="${name}">John Doe</span></p>
+        <p><strong>Address:</strong> <span th:text="${address}">123 Main Street, Springfield, IL, USA</span></p>
+        <p><strong>Date of Issue:</strong> <span th:text="${date}">October 25, 2023</span></p>
+    </div>
+
+    <!-- Income Details Table -->
+    <table class="income-table">
+        <thead>
+        <tr>
+            <th>Income Type</th>
+            <th>Income Source</th>
+            <th>Income Amount (in LKR)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="income : ${incomes}">
+            <td th:text="${income.incomeType}">EMPLOYMENT_INCOME</td>
+            <td th:text="${income.incomeSource}">Codelantic</td>
+            <td th:text="${#numbers.formatDecimal(income.incomeAmount, 1, 2, 'COMMA')}">45,000.00</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <strong>Total Annual Income:</strong> <span th:text="${totalIncome}">$63,000.00</span>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>This is to certify that the above details are true and accurate to the best of our knowledge.</p>
+<!--        <img th:src="" alt="Signature"/>-->
+        <p><strong>Authorized Signatory:</strong></p>
+        <p><strong>Grama Niladhari Name</strong > <span th:text="${gnName}"></span></p>
+        <p><strong>GN Division Name:<span th:text="${gnDivisionName}"></span></strong></p>
+        <p><strong>Date:</strong> <span th:text="${date}">October 25, 2023</span></p>
+
+    </div>
+</div>
+</body>
+</html>

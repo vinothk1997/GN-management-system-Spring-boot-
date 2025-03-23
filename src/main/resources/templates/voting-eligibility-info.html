@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register for Voting - You Turn 18 Soon!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            background: #007BFF;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 8px 8px 0 0;
+        }
+        .content {
+            padding: 20px;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 12px;
+            text-align: center;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            padding: 10px;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .footer a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        🗳️ Register to Vote - Your 18th Birthday is Coming Soon!
+    </div>
+    <div class="content">
+        <p>Dear <strong th:text="${name}"></strong>,</p>
+        <p>We are excited to inform you that in **one month**, you will be turning 18 – a significant milestone in your life!</p>
+        <p>Once you turn 18, you will have the right to vote and shape the future of our country.</p>
+
+        <h3>📌 How to Register?</h3>
+        <p>Visit your nearest election office or register online by clicking the button below.</p>
+
+        <a href="[Registration Link]" class="button">Register Now</a>
+
+        <p>🗓️ **Your 18th Birthday:** <strong>[User's Birthday]</strong></p>
+        <p>⚠️ **Registration Deadline:** <strong>[Deadline Date]</strong></p>
+
+        <p>If you have any questions, feel free to contact us at <a href="mailto:support@example.com">support@example.com</a>.</p>
+
+        <p>Make your voice heard. Register to vote today!</p>
+    </div>
+
+    <div class="footer">
+        Best regards, <br>
+        <strong>[Your Organization Name]</strong> <br>
+        <a href="[Website Link]">Visit Our Website</a>
+    </div>
+</div>
+
+</body>
+</html>
