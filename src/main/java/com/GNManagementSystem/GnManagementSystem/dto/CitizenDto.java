@@ -4,8 +4,11 @@ import com.GNManagementSystem.GnManagementSystem.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -22,6 +25,8 @@ public class CitizenDto {
     @Enumerated(EnumType.STRING)
     private Gender gender;
     private Integer age;
+    @Pattern(regexp = "^(\\d{12}|\\d{9}[VX])$", message = "Invalid NIC format. Use 12 digits or 10 digits ending with 'V' or 'X'.")
+    private String nic;
     private LocalDate dateOfBirth;
     private String email;
     private String phone;

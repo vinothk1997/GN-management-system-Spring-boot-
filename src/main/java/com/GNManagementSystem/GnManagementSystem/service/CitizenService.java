@@ -24,6 +24,9 @@ public class CitizenService {
         if(Boolean.TRUE.equals(citizenRepository.existsByEmail(citizen.getEmail()))){
             throw new ServiceException(ApplicationConstants.ALREADY_EXIST,"email already exist",HttpStatus.BAD_REQUEST);
         }
+        if(Boolean.TRUE.equals(citizenRepository.existsByNic(citizen.getNic()))){
+            throw new ServiceException(ApplicationConstants.ALREADY_EXIST,"nic already exist",HttpStatus.BAD_REQUEST);
+        }
         Citizen savedCitizen =citizenRepository.save(citizen);
         UserRole userRole = UserRole.builder()
                 .role(Role.PEOPLE)

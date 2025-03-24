@@ -34,4 +34,6 @@ public interface CitizenRepository extends JpaRepository<Citizen, String> {
 
 
     Boolean existsByEmail(String email);
+
+    Boolean existsByNic(String nic);
 }

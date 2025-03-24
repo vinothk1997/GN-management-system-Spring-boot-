@@ -36,6 +36,7 @@ public class CitizenConverter {
                 .father(citizenDto.getFather())
                 .age((citizenDto.getDateOfBirth() != null) ? Period.between(citizenDto.getDateOfBirth(), LocalDate.now()).getYears() : 0)
                 .dateOfBirth(citizenDto.getDateOfBirth())
+                .nic(citizenDto.getNic())
                 .email(citizenDto.getEmail())
                 .firstName(citizenDto.getFirstName())
                 .lastName(citizenDto.getLastName())

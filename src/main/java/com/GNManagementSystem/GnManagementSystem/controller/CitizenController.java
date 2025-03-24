@@ -5,8 +5,9 @@ import com.GNManagementSystem.GnManagementSystem.dto.CitizenDto;
 import com.GNManagementSystem.GnManagementSystem.dto.ResponseDto;
 import com.GNManagementSystem.GnManagementSystem.entity.Citizen;
 import com.GNManagementSystem.GnManagementSystem.service.CitizenService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,11 +15,12 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/citizen")
+@Validated
 public class CitizenController {
     private final CitizenAgent citizenAgent;
     private final CitizenService citizenService;
     @PostMapping
-    public ResponseDto createCitizen(@RequestBody CitizenDto citizenDto) {
+    public ResponseDto createCitizen(@RequestBody @Valid CitizenDto citizenDto) {
         return citizenAgent.createCitizen(citizenDto);
     }
 
