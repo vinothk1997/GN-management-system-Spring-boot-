@@ -18,7 +18,7 @@ import java.util.Optional;
 public class JobService {
     private final JobRepository jobRepository;
     public Job save(Job job) {
-        if (jobRepository.findByTitle(job.getTitle()) != null) {
+        if (!jobRepository.findByTitle(job.getTitle()).isEmpty()) {
             throw new ServiceException("Job already exists",ApplicationConstants.ALREADY_EXIST,
                     HttpStatus.CONFLICT);
         }

@@ -56,6 +56,12 @@ public class CitizenController {
         if ("null".equals(familyCardNo)) {
             familyCardNo = null;
         }
+        if ("null".equals(ageFrom)) {
+            ageFrom = "";
+        }
+        if ("null".equals(ageTo)) {
+            ageTo = "";
+        }
 
         int intAgeFrom = Objects.equals(ageFrom, "") ? 0:Integer.parseInt(ageFrom);
         int intAgeTo = Objects.equals(ageTo, "") ? 100: Integer.parseInt(ageTo);

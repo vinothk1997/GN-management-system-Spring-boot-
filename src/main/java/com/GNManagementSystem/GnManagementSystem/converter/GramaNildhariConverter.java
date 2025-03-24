@@ -1,12 +1,17 @@
 package com.GNManagementSystem.GnManagementSystem.converter;
 
+import com.GNManagementSystem.GnManagementSystem.constants.ApplicationConstants;
 import com.GNManagementSystem.GnManagementSystem.dto.GramaNiladhariDto;
 import com.GNManagementSystem.GnManagementSystem.dto.GramaNiladhariResponseDto;
 import com.GNManagementSystem.GnManagementSystem.entity.EducationalQualification;
 import com.GNManagementSystem.GnManagementSystem.entity.GramaNiladhari;
+import com.GNManagementSystem.GnManagementSystem.entity.GramaNiladhariDivision;
 import com.GNManagementSystem.GnManagementSystem.entity.UserRole;
 import com.GNManagementSystem.GnManagementSystem.enums.Role;
+import com.GNManagementSystem.GnManagementSystem.exception.ServiceException;
+import com.GNManagementSystem.GnManagementSystem.repository.GramaNiladhariDivisionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +25,9 @@ import java.util.List;
 public class GramaNildhariConverter {
     private final PasswordEncoder passwordEncoder;
     private final EducationalQualificationConverter educationalQualificationConverter;
+    private final GramaNiladhariDivisionRepository gramaNiladhariDivisionRepository;
     public GramaNiladhari convertToGramaNiladhari(GramaNiladhariDto gramaNiladhariDto) {
+        GramaNiladhariDivision gramaNiladhariDivision = gramaNiladhariDivisionRepository.findById(gramaNiladhariDto.getGnDivisionId()).orElseThrow(()->new ServiceException("Gn Division not found", ApplicationConstants.NOT_FOUND, HttpStatus.NOT_FOUND));
         GramaNiladhari gramaNiladhari = GramaNiladhari.builder()
                 .username(gramaNiladhariDto.getUsername())
                 .password(passwordEncoder.encode(gramaNiladhariDto.getPassword()))
@@ -36,6 +43,8 @@ public class GramaNildhariConverter {
                 .city(gramaNiladhariDto.getCity())
                 .jobCardNo(gramaNiladhariDto.getJobCardNo())
                 .serviceGrade(gramaNiladhariDto.getServiceGrade())
+                .permanent(gramaNiladhariDto.getIsPermanent())
+                .gramaNiladhariDivision(gramaNiladhariDivision)
                 .build();
 
         UserRole userRole = UserRole.builder()

@@ -6,17 +6,18 @@ import com.GNManagementSystem.GnManagementSystem.entity.Employment;
 import com.GNManagementSystem.GnManagementSystem.service.EmploymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Component
 @RequiredArgsConstructor
 public class EmploymentAgent {
     private final EmploymentService employmentService;
 
-    public ResponseDto saveEmployment(EmploymentRequestDto employmentRequestDto) {
+    public ResponseDto saveEmployment(@RequestBody EmploymentRequestDto employmentRequestDto) {
         return employmentService.saveEmployment(employmentRequestDto);
     }
 
-    public ResponseDto updateEmployment(EmploymentRequestDto employmentRequestDto) {
+    public ResponseDto updateEmployment(@RequestBody EmploymentRequestDto employmentRequestDto) {
         return employmentService.updateEmployment(employmentRequestDto);
     }
 }

@@ -37,6 +37,7 @@ public class GramaNiladhariDto {
     private String jobCardNo;
     private String serviceGrade;
     private Boolean isPermanent;
+    private String gnDivisionId;
     private List<EducationQualificationDto> educationQualification;
 
 }
