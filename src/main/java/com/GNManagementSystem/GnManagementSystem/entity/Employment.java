@@ -28,4 +28,5 @@ public class Employment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_id", nullable = false)
     private Job job;
+
 }

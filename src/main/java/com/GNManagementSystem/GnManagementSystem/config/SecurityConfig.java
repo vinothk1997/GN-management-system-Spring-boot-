@@ -3,6 +3,7 @@ package com.GNManagementSystem.GnManagementSystem.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -37,10 +38,8 @@ public class SecurityConfig {
                 .securityContext(context -> context
                         .securityContextRepository(new HttpSessionSecurityContextRepository())
                 )
-//                .oauth2Login(oauth2 -> oauth2
-//                        .defaultSuccessUrl("/api/v1/auth/oauth2/success", true)
-//                        .failureUrl("/api/v1/auth/login?error")
-//                )
+                .oauth2Login(oauth2 -> oauth2
+                .defaultSuccessUrl("/api/v1/auth/google/login", true))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .build();
     }

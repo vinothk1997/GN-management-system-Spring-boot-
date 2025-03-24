@@ -36,7 +36,7 @@ public class CitizenDto {
     private Boolean mother;
     private Boolean child;
     private String familyCardNo;
-    private String gramaNiladhariDivisionId;
+    private String gramaNiladhariId;
 
     public CitizenDto( String username, String firstName, String lastName,
                       Gender gender, Integer age, LocalDate dateOfBirth, String familyCardNo) {

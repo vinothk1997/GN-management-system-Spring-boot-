@@ -59,9 +59,9 @@ public class AuthController {
         return principal.getAttributes(); // Return Google user details
     }
 
-    @GetMapping("/debug")
-    public void debugUserRoles() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("User Roles: " + authentication.getAuthorities());
+
+    @GetMapping("/google/login")
+    public UserDetailsDto googleLogin(@AuthenticationPrincipal OAuth2User user,HttpServletRequest httpServletRequest) {
+        return authAgent.googleLogin(user,httpServletRequest);
     }
 }

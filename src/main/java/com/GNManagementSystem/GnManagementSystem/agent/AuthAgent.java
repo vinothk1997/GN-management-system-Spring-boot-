@@ -8,6 +8,7 @@ import com.GNManagementSystem.GnManagementSystem.repository.UserRoleRepository;
 import com.GNManagementSystem.GnManagementSystem.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -45,5 +46,9 @@ public class AuthAgent {
 
     public ResponseDto updatePassword(UpdatePasswordDto updatePasswordDto) {
         return authService.updatePassword(updatePasswordDto);
+    }
+
+    public UserDetailsDto googleLogin(OAuth2User user,HttpServletRequest httpServletRequest) {
+        return authService.googleLogin(user,httpServletRequest);
     }
 }

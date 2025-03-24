@@ -24,10 +24,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -58,6 +60,11 @@ public class AuthService {
 
         User user = userOptional.get();
 
+        return getUserDetailsDto(httpRequest, user);
+
+    }
+
+    private UserDetailsDto getUserDetailsDto(HttpServletRequest httpRequest, User user) {
         var authorities=  userRoleRepository.findByUser(user).stream()
                 .map(userRole -> new SimpleGrantedAuthority("ROLE_"+userRole.getRole().name()))
                 .toList();
@@ -79,8 +86,8 @@ public class AuthService {
                 .lastName(user.getLastName())
                 .roles(user.getUserRoles().stream().map(UserRole::getRole).toList())
                 .build();
-
     }
+
 
 
     public String generateResetToken(String email) {
@@ -134,4 +141,15 @@ public class AuthService {
                 .build();
     }
 
+    public UserDetailsDto googleLogin(OAuth2User oAuth2User,HttpServletRequest httpRequest) {
+        Map<String,Object> userDetails =  oAuth2User.getAttributes();
+        Object email =  userDetails.get("email");
+
+        User user = authRepository.findByEmail(email.toString()).orElseThrow(()-> new ServiceException("Email not found for this user",ApplicationConstants.NOT_FOUND,HttpStatus.NOT_FOUND));
+
+
+        return getUserDetailsDto(httpRequest, user);
+
+
+    }
 }
