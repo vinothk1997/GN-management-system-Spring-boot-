@@ -6,11 +6,14 @@ import com.GNManagementSystem.GnManagementSystem.dto.ResponseDto;
 import com.GNManagementSystem.GnManagementSystem.entity.Citizen;
 import com.GNManagementSystem.GnManagementSystem.service.CitizenService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,13 +41,13 @@ public class CitizenController {
     public List<CitizenDto> getCitizenByFilter(@RequestParam(value = "nic",required = false) String nic,
                                                @RequestParam(value = "firstName",required = false) String firstName,
                                                @RequestParam(value = "familyCardNo",required = false) String familyCardNo,
-                                               @RequestParam(value = "ageFrom",required = false) Integer ageFrom,
-                                               @RequestParam(value = "ageTo",required = false) Integer ageTo,
+                                               @RequestParam(value = "ageFrom",required = false)@NotNull  String ageFrom,
+                                               @RequestParam(value = "ageTo",required = false) @NotNull String ageTo,
                                                @RequestParam(value = "gnId",required = false) String gnId) {
 
-        if (ageFrom == null) ageFrom = 0;
-        if (ageTo == null) ageTo = 150;
-        return citizenAgent.getAllCitizenByFilter(nic,firstName,familyCardNo,ageFrom,ageTo,gnId);
+        int intAgeFrom = Objects.equals(ageFrom, "") ? 0:Integer.parseInt(ageFrom);
+        int intAgeTo = Objects.equals(ageTo, "") ? 100: Integer.parseInt(ageTo);
+        return citizenAgent.getAllCitizenByFilter(nic,firstName,familyCardNo,intAgeFrom,intAgeTo,gnId);
     }
 
 
