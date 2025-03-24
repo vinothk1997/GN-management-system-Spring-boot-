@@ -26,8 +26,8 @@ public class CertificateRequestAgent {
     public List<CertificateRequestResponseDto> getAllCertificateRequests() {
         return certificateRequestService.getAllCertificateRequests();
     }
-    public List<CertificateRequestResponseDto> getCertificateRequestsByFilter(String userId, TypeOfCertificate typeOfCertificate, RequestStatus requestStatus, LocalDate requestedDate) {
-        return certificateRequestService.getCertificateRequestsByFilter(userId,typeOfCertificate,requestStatus,requestedDate);
+    public List<CertificateRequestResponseDto> getCertificateRequestsByFilter(String userId, TypeOfCertificate typeOfCertificate, RequestStatus requestStatus, LocalDate requestedDate, LocalDate requestedDateTo) {
+        return certificateRequestService.getCertificateRequestsByFilter(userId,typeOfCertificate,requestStatus,requestedDate,requestedDateTo);
     }
 
     public ResponseDto approveCertificateRequest(String id,String updatedById) throws MessagingException {

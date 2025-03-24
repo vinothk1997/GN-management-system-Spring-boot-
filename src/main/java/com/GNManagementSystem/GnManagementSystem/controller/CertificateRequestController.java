@@ -27,8 +27,14 @@ public class CertificateRequestController {
     }
     @GetMapping("/by-filter")
 //    @PreAuthorize("hasRole('GS')")
-    public List<CertificateRequestResponseDto> getCertificateRequestsByFilter(@RequestParam(value = "userId",required = false) String userId, @RequestParam(value = "typeOfCertificate",required = false) TypeOfCertificate typeOfCertificate, @RequestParam(value = "requestStatus",required = false) RequestStatus requestStatus, @RequestParam(value = "requestedDate",required = false) LocalDate requestedDate) {
-        return certificateRequestAgent.getCertificateRequestsByFilter(userId,typeOfCertificate,requestStatus,requestedDate);
+    public List<CertificateRequestResponseDto> getCertificateRequestsByFilter(@RequestParam(value = "userId",required = false) String userId, @RequestParam(value = "typeOfCertificate",required = false) TypeOfCertificate typeOfCertificate, @RequestParam(value = "requestStatus",required = false) RequestStatus requestStatus, @RequestParam(value = "requestedDateFrom",required = false) LocalDate requestedDate,@RequestParam("requestedDateTo") LocalDate requestedDateTo) {
+        if(typeOfCertificate==TypeOfCertificate.ALL){
+            typeOfCertificate=null;
+        }
+        if(requestStatus==RequestStatus.ALL){
+            requestStatus=null;
+        }
+        return certificateRequestAgent.getCertificateRequestsByFilter(userId,typeOfCertificate,requestStatus,requestedDate,requestedDateTo);
     }
 
     @GetMapping("/approve")

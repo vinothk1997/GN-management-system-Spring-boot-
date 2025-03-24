@@ -39,7 +39,7 @@ public class CitizenDto {
     private String gramaNiladhariId;
 
     public CitizenDto( String username, String firstName, String lastName,
-                      Gender gender, Integer age, LocalDate dateOfBirth, String familyCardNo) {
+                      Gender gender, Integer age, LocalDate dateOfBirth, String familyCardNo,String email) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,5 +47,6 @@ public class CitizenDto {
         this.age = age;
         this.dateOfBirth = dateOfBirth;
         this.familyCardNo = familyCardNo;
+        this.email= email;
     }
 }

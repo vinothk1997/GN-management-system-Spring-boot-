@@ -48,8 +48,8 @@ public class CertificateRequestService {
         return certificateRequests.stream().map(certificateRequestConverter::convertToCertificateRequestResponseDto).toList();
    }
 
-   public List<CertificateRequestResponseDto> getCertificateRequestsByFilter(String userId, TypeOfCertificate typeOfCertificate, RequestStatus requestStatus, LocalDate requestedDate) {
-        return certificateRequestRepository.getCertificateRequestsByFilter(userId,typeOfCertificate,requestStatus,requestedDate);
+   public List<CertificateRequestResponseDto> getCertificateRequestsByFilter(String userId, TypeOfCertificate typeOfCertificate, RequestStatus requestStatus, LocalDate requestedDate, LocalDate requestedDateTo) {
+        return certificateRequestRepository.getCertificateRequestsByFilter(userId,typeOfCertificate,requestStatus,requestedDate,requestedDateTo);
    }
 
    public ResponseDto updateCertificateRequestStatus(CertificateStatusUpdateDto certificateStatusUpdateDto){

@@ -13,22 +13,23 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.itextpdf.html2pdf.html.TagConstants.SELECT;
-
 public interface CertificateRequestRepository extends JpaRepository<CertificateRequest, String> {
     @Query("SELECT new com.GNManagementSystem.GnManagementSystem.dto.CertificateRequestResponseDto(" +
-            "cr.id, cr.typeOfCertificate,cr.reason,cr.requestedOrganization,cr.status, cr.rejectionReason, cr.requestedDate,cr.requestStatusUpdateDate,c.firstName,cr.id) " +
+            "cr.id, cr.typeOfCertificate, cr.reason, cr.requestedOrganization, cr.status, " +
+            "cr.rejectionReason, cr.requestedDate, cr.requestStatusUpdateDate, c.firstName, cr.id) " +
             "FROM CertificateRequest cr " +
             "JOIN cr.citizen c " +
             "WHERE (:userId IS NULL OR c.id = :userId) " +
             "AND (:typeOfCertificate IS NULL OR cr.typeOfCertificate = :typeOfCertificate) " +
             "AND (:requestStatus IS NULL OR cr.status = :requestStatus) " +
-            "AND (:requestedDate IS NULL OR cr.requestedDate = :requestedDate)")
+            "AND (:requestedDate IS NULL OR cr.requestedDate >= :requestedDate) " +
+            "AND (:requestedDateTo IS NULL OR cr.requestedDate <= :requestedDateTo)")
     List<CertificateRequestResponseDto> getCertificateRequestsByFilter(
             @Param("userId") String userId,
             @Param("typeOfCertificate") TypeOfCertificate typeOfCertificate,
             @Param("requestStatus") RequestStatus requestStatus,
-            @Param("requestedDate") LocalDate requestedDate
+            @Param("requestedDate") LocalDate requestedDate,
+            @Param("requestedDateTo") LocalDate requestedDateTo
     );
 
     @Query("SELECT new com.GNManagementSystem.GnManagementSystem.dto.CertificateRequestDetailsDto( " +

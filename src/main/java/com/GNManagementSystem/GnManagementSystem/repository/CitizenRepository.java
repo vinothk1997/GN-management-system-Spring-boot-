@@ -15,7 +15,7 @@ public interface CitizenRepository extends JpaRepository<Citizen, String> {
     List<Citizen> findByDateOfBirth(LocalDate dateOfBirth);
 
     @Query("SELECT new com.GNManagementSystem.GnManagementSystem.dto.CitizenDto(" +
-            "c.username, c.firstName, c.lastName, c.gender, c.age, c.dateOfBirth, c.familyCardNo) " +
+            "c.username, c.firstName, c.lastName, c.gender, c.age, c.dateOfBirth, c.familyCardNo,c.email) " +
             "FROM Citizen c " +
             "JOIN c.gramaNiladhariDivision gnd " +
             "JOIN GramaNiladhari gn ON gn.gramaNiladhariDivision = gnd " +
