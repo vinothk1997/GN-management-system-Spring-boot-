@@ -9,12 +9,14 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/citizen")
@@ -44,6 +46,16 @@ public class CitizenController {
                                                @RequestParam(value = "ageFrom",required = false)@NotNull  String ageFrom,
                                                @RequestParam(value = "ageTo",required = false) @NotNull String ageTo,
                                                @RequestParam(value = "gnId",required = false) String gnId) {
+
+        if ("null".equals(nic)) {
+            nic = null;
+        }
+        if ("null".equals(firstName)) {
+            firstName = null;
+        }
+        if ("null".equals(familyCardNo)) {
+            familyCardNo = null;
+        }
 
         int intAgeFrom = Objects.equals(ageFrom, "") ? 0:Integer.parseInt(ageFrom);
         int intAgeTo = Objects.equals(ageTo, "") ? 100: Integer.parseInt(ageTo);
