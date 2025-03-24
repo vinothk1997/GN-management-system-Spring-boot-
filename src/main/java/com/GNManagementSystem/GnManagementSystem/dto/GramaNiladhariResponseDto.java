@@ -22,6 +22,7 @@ public class GramaNiladhariResponseDto {
     private String lastName;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    private String nic;
     private Integer age;
     private LocalDate dateOfBirth;
     private String email;

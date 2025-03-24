@@ -4,16 +4,16 @@ import com.GNManagementSystem.GnManagementSystem.dto.GramaNiladhariDto;
 import com.GNManagementSystem.GnManagementSystem.dto.GramaNiladhariResponseDto;
 import com.GNManagementSystem.GnManagementSystem.entity.EducationalQualification;
 import com.GNManagementSystem.GnManagementSystem.entity.GramaNiladhari;
-import com.GNManagementSystem.GnManagementSystem.entity.User;
 import com.GNManagementSystem.GnManagementSystem.entity.UserRole;
 import com.GNManagementSystem.GnManagementSystem.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -27,7 +27,8 @@ public class GramaNildhariConverter {
                 .firstName(gramaNiladhariDto.getFirstName())
                 .lastName(gramaNiladhariDto.getLastName())
                 .gender(gramaNiladhariDto.getGender())
-                .age(gramaNiladhariDto.getAge())
+                .nic(gramaNiladhariDto.getNic())
+                .age(gramaNiladhariDto.getDateOfBirth()!=null? Period.between(gramaNiladhariDto.getDateOfBirth(), LocalDate.now()).getYears() : 0)
                 .dateOfBirth(gramaNiladhariDto.getDateOfBirth())
                 .email(gramaNiladhariDto.getEmail())
                 .phone(gramaNiladhariDto.getPhone())
@@ -65,6 +66,7 @@ public class GramaNildhariConverter {
                 .lastName(gramaNiladhari.getLastName())
                 .gender(gramaNiladhari.getGender())
                 .age(gramaNiladhari.getAge())
+                .nic(gramaNiladhari.getNic())
                 .dateOfBirth(gramaNiladhari.getDateOfBirth())
                 .email(gramaNiladhari.getEmail())
                 .phone(gramaNiladhari.getPhone())

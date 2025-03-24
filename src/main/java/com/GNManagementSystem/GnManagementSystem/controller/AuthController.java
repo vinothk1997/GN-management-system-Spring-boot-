@@ -3,6 +3,7 @@ package com.GNManagementSystem.GnManagementSystem.controller;
 import com.GNManagementSystem.GnManagementSystem.agent.AuthAgent;
 import com.GNManagementSystem.GnManagementSystem.dto.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +28,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public UserDetailsDto loginUser(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest request) {
-        return authAgent.loginUser(loginRequestDto,request);
+    public UserDetailsDto loginUser(@RequestBody LoginRequestDto loginRequestDto, HttpServletRequest request, HttpServletResponse httpServletResponse) {
+        return authAgent.loginUser(loginRequestDto,request,httpServletResponse);
     }
 
     @GetMapping("/forget-password-link")
@@ -61,7 +62,7 @@ public class AuthController {
 
 
     @GetMapping("/google/login")
-    public UserDetailsDto googleLogin(@AuthenticationPrincipal OAuth2User user,HttpServletRequest httpServletRequest) {
-        return authAgent.googleLogin(user,httpServletRequest);
+    public UserDetailsDto googleLogin(@AuthenticationPrincipal OAuth2User user,HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {
+        return authAgent.googleLogin(user,httpServletRequest,httpServletResponse);
     }
 }

@@ -7,6 +7,7 @@ import com.GNManagementSystem.GnManagementSystem.entity.UserRole;
 import com.GNManagementSystem.GnManagementSystem.repository.UserRoleRepository;
 import com.GNManagementSystem.GnManagementSystem.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
@@ -35,8 +36,8 @@ public class AuthAgent {
         return  new ResponseDto("saved");
     }
 
-    public UserDetailsDto loginUser(LoginRequestDto loginRequestDto, HttpServletRequest request) {
-        return authService.loginUser(loginRequestDto, request);
+    public UserDetailsDto loginUser(LoginRequestDto loginRequestDto, HttpServletRequest request,HttpServletResponse httpServletResponse) {
+        return authService.loginUser(loginRequestDto, request,httpServletResponse);
     }
 
 
@@ -48,7 +49,7 @@ public class AuthAgent {
         return authService.updatePassword(updatePasswordDto);
     }
 
-    public UserDetailsDto googleLogin(OAuth2User user,HttpServletRequest httpServletRequest) {
-        return authService.googleLogin(user,httpServletRequest);
+    public UserDetailsDto googleLogin(OAuth2User user,HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) {
+        return authService.googleLogin(user,httpServletRequest,httpServletResponse);
     }
 }

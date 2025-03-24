@@ -4,6 +4,7 @@ import com.GNManagementSystem.GnManagementSystem.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +26,8 @@ public class GramaNiladhariDto {
     private String lastName;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    @Pattern(regexp = "^(\\d{12}|\\d{9}[VX])$", message = "Invalid NIC format. Use 12 digits or 10 digits ending with 'V' or 'X'.")
+    private String nic;
     private Integer age;
     private LocalDate dateOfBirth;
     private String email;

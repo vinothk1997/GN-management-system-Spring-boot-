@@ -13,6 +13,7 @@ import com.GNManagementSystem.GnManagementSystem.repository.UserRepository;
 import com.GNManagementSystem.GnManagementSystem.repository.UserRoleRepository;
 import com.GNManagementSystem.GnManagementSystem.utill.EmailService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +52,7 @@ public class AuthService {
         return authRepository.save(user);
     }
 
-    public UserDetailsDto loginUser(@RequestBody LoginRequestDto request, HttpServletRequest httpRequest) {
+    public UserDetailsDto loginUser(@RequestBody LoginRequestDto request, HttpServletRequest httpRequest, HttpServletResponse httpServletResponse) {
         Optional<User> userOptional = authRepository.findByEmail(request.getEmail());
 
         if (userOptional.isEmpty() || !passwordEncoder.matches(request.getPassword(), userOptional.get().getPassword())) {
@@ -60,11 +61,11 @@ public class AuthService {
 
         User user = userOptional.get();
 
-        return getUserDetailsDto(httpRequest, user);
+        return getUserDetailsDto(httpRequest,httpServletResponse, user);
 
     }
 
-    private UserDetailsDto getUserDetailsDto(HttpServletRequest httpRequest, User user) {
+    private UserDetailsDto getUserDetailsDto(HttpServletRequest httpRequest,HttpServletResponse httpServletResponse,  User user) {
         var authorities=  userRoleRepository.findByUser(user).stream()
                 .map(userRole -> new SimpleGrantedAuthority("ROLE_"+userRole.getRole().name()))
                 .toList();
@@ -77,6 +78,8 @@ public class AuthService {
 
         httpRequest.getSession(true);
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
+        httpServletResponse.setHeader("SessionId", session.getId());
+
 
 
         return UserDetailsDto.builder()
@@ -141,14 +144,14 @@ public class AuthService {
                 .build();
     }
 
-    public UserDetailsDto googleLogin(OAuth2User oAuth2User,HttpServletRequest httpRequest) {
+    public UserDetailsDto googleLogin(OAuth2User oAuth2User,HttpServletRequest httpRequest,HttpServletResponse httpServletResponse) {
         Map<String,Object> userDetails =  oAuth2User.getAttributes();
         Object email =  userDetails.get("email");
 
         User user = authRepository.findByEmail(email.toString()).orElseThrow(()-> new ServiceException("Email not found for this user",ApplicationConstants.NOT_FOUND,HttpStatus.NOT_FOUND));
 
 
-        return getUserDetailsDto(httpRequest, user);
+        return getUserDetailsDto(httpRequest,httpServletResponse, user);
 
 
     }
