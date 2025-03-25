@@ -37,7 +37,7 @@ public class CertificateRequestController {
         return certificateRequestAgent.getCertificateRequestsByFilter(userId,typeOfCertificate,requestStatus,requestedDate,requestedDateTo);
     }
 
-    @GetMapping("/approve")
+    @PostMapping("/approve")
     public ResponseDto approveCertificateRequest(@RequestBody CertificateApprovalDto certificateApprovalDto) throws MessagingException {
         return certificateRequestAgent.approveCertificateRequest(certificateApprovalDto.getCertificateId(),certificateApprovalDto.getUpdatedById());
     }
