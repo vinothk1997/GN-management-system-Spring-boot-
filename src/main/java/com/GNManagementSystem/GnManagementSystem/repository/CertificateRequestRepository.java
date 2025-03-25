@@ -34,7 +34,7 @@ public interface CertificateRequestRepository extends JpaRepository<CertificateR
 
     @Query("SELECT new com.GNManagementSystem.GnManagementSystem.dto.CertificateRequestDetailsDto( " +
             "c.firstName, c.lastName, c.email, c.nic, c.address, c.city, " +
-            "cr.reason, gnd.code, gn.firstName) " +
+            "cr.reason, gnd.code, gn.firstName,cr.verificationNumber) " +
             "FROM CertificateRequest cr " +
             "JOIN cr.citizen c " +
             "JOIN c.gramaNiladhariDivision gnd " +
@@ -44,7 +44,7 @@ public interface CertificateRequestRepository extends JpaRepository<CertificateR
 
     @Query("SELECT new com.GNManagementSystem.GnManagementSystem.dto.IncomeCertificateResponseDetailDto(" +
             "i.id, c.firstName, c.lastName,c.email, c.address, c.city, i.id, i.incomeType, i.incomeSource, i.incomeValue, " +
-            "gn.firstName, gn.lastName, gnd.name, gnd.address) " +
+            "gn.firstName, gn.lastName, gnd.name, gnd.address,cr.verificationNumber) " +
             "FROM CertificateRequest cr " +
             "JOIN cr.citizen c " +
             "JOIN Income i ON i.citizen = c " +

@@ -16,16 +16,20 @@ import com.GNManagementSystem.GnManagementSystem.utill.HTMLToPDFService;
 import com.GNManagementSystem.GnManagementSystem.utill.SupabaseStorageService;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+import java.util.stream.IntStream;
+import java.util.Random;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class CertificateRequestService {
@@ -70,6 +74,8 @@ public class CertificateRequestService {
         certificateRequest.setStatus(RequestStatus.APPROVED);
         certificateRequest.setRequestStatusUpdatedBy(updatedById);
         certificateRequest.setRequestStatusUpdateDate(LocalDate.now());
+        certificateRequest.setVerificationNumber(generateVerificationNumber());
+        log.info("_____________verficationNumber,{}",generateVerificationNumber());
         CertificateRequest savedCertificateRequest = certificateRequestRepository.save(certificateRequest);
 
         if(certificateRequest.getTypeOfCertificate()==TypeOfCertificate.CHARACTER_CERTIFICATE){
@@ -89,6 +95,7 @@ public class CertificateRequestService {
         data.put("behavior", "Exemplary");
         data.put("purpose", certificateRequestDetailsDto.getPurpose());
         data.put("gnName", certificateRequestDetailsDto.getGnName());
+        data.put("serialNo",certificateRequestDetailsDto.getSerialNo());
 
         MultipartFile multipartFile = htmlToPDFService.generatePDFResponse(data);
         String url=  supabaseStorageService.uploadImage(multipartFile);
@@ -129,6 +136,7 @@ public class CertificateRequestService {
                 data.put("incomes", incomeCertificateResponseDetailDtos);
                 data.put("gnName", incomeCertificateResponseDetailDtos.get(0).getGnFirstName() + " " + incomeCertificateResponseDetailDtos.get(0).getGnLastName());
                 data.put("gnDivisionName", incomeCertificateResponseDetailDtos.get(0).getGnDivisionName());
+                data.put("serialNo",incomeCertificateResponseDetailDtos.get(0).getSerialNo());
             } else {
                 throw new ServiceException("No income details found for the given certificate request ID.",ApplicationConstants.NOT_FOUND,HttpStatus.NOT_FOUND);
             }
@@ -168,6 +176,19 @@ public class CertificateRequestService {
         throw new ServiceException("Certificate Request not rejected", ApplicationConstants.NOT_FOUND, HttpStatus.NOT_FOUND);
     }
 
+    public static String generateVerificationNumber() {
+        Random random = new Random();
+        return IntStream.range(0, 3)
+                .mapToObj(i -> String.format("%04d", random.nextInt(10000)))
+                .collect(Collectors.joining("-"));
+    }
+
+
+//    public ResponseDto verifyCertificateRequest(String id){
+//        CertificateRequest certificateRequest = certificateRequestRepository.findById(id).orElseThrow(()->new ServiceException("Certificate Id not found",ApplicationConstants.NOT_FOUND,HttpStatus.NOT_FOUND));
+//        if (certificateRequest){
+//    }
+//
 
 
 }

@@ -19,4 +19,5 @@ public class CertificateRequestDetailsDto {
     private String purpose;
     private String gnDivision;
     private String gnName;
+    private String serialNo;
 }

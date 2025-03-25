@@ -38,8 +38,9 @@ public class CitizenDto {
     private String familyCardNo;
     private String gramaNiladhariId;
 
-    public CitizenDto( String username, String firstName, String lastName,
+    public CitizenDto( String id,String username, String firstName, String lastName,
                       Gender gender, Integer age, LocalDate dateOfBirth, String familyCardNo,String email) {
+        this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;

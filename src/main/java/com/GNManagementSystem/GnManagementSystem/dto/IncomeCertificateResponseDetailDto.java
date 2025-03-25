@@ -30,5 +30,6 @@ public class IncomeCertificateResponseDetailDto {
     private String gnLastName;
     private String gnDivisionName;
     private String gnDivisionAddress;
+    private String serialNo;
 
 }
