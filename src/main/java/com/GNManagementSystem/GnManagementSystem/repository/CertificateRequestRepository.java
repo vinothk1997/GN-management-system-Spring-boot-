@@ -16,7 +16,7 @@ import java.util.List;
 public interface CertificateRequestRepository extends JpaRepository<CertificateRequest, String> {
     @Query("SELECT new com.GNManagementSystem.GnManagementSystem.dto.CertificateRequestResponseDto(" +
             "cr.id, cr.typeOfCertificate, cr.reason, cr.requestedOrganization, cr.status, " +
-            "cr.rejectionReason, cr.requestedDate, cr.requestStatusUpdateDate, c.firstName, cr.id) " +
+            "cr.rejectionReason, cr.requestedDate, cr.requestStatusUpdateDate, c.firstName, c.id) " +
             "FROM CertificateRequest cr " +
             "JOIN cr.citizen c " +
             "WHERE (:userId IS NULL OR c.id = :userId) " +
