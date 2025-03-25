@@ -1,5 +1,7 @@
 package com.GNManagementSystem.GnManagementSystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,10 +22,9 @@ public class GramaNiladhari extends User{
     private String serviceGrade;
     @Column(name = "is_permanent")
     private Boolean permanent;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<EducationalQualification> educationalQualifications;
-    @OneToMany(mappedBy = "gramaNiladhari",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<GramaNiladhariHistory> gramaNiladhariHistories;
     @OneToOne
     @JoinColumn(name="gn_division_id")
     private GramaNiladhariDivision gramaNiladhariDivision;
