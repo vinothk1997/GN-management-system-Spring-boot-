@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .securityContextRepository(new HttpSessionSecurityContextRepository())
                 )
                 .oauth2Login(oauth2 -> oauth2
-                .defaultSuccessUrl("/api/v1/auth/google/login", true))
+                .defaultSuccessUrl("/api/v1/auth/google/loin", true))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .build();
     }

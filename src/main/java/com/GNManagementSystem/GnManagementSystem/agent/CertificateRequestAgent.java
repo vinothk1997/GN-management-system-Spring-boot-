@@ -37,4 +37,8 @@ public class CertificateRequestAgent {
     public ResponseDto rejectCertificateRequest(RejectCertificateDto rejectCertificateDto)  {
         return certificateRequestService.rejectCertificateRequest(rejectCertificateDto);
     }
+
+    public ResponseDto verifyCertificateRequest(String certificateRequestId){
+        return certificateRequestService.verifyCertificateRequest(certificateRequestId);
+    }
 }

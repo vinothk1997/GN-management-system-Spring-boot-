@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface CertificateRequestRepository extends JpaRepository<CertificateRequest, String> {
     @Query("SELECT new com.GNManagementSystem.GnManagementSystem.dto.CertificateRequestResponseDto(" +
@@ -52,4 +53,6 @@ public interface CertificateRequestRepository extends JpaRepository<CertificateR
             "JOIN GramaNiladhari gn ON gn.gramaNiladhariDivision=gnd " +
             "WHERE cr.id = :id")
     List<IncomeCertificateResponseDetailDto> getAllIncomeDetailsByCitizenId(@Param("id") String id);
+
+    Optional<CertificateRequest> findByVerificationNumber(String certificateNo);
 }

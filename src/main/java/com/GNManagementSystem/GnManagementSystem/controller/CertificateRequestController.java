@@ -47,6 +47,9 @@ public class CertificateRequestController {
         certificateRequestAgent.rejectCertificateRequest(rejectCertificateDto);
         return new ResponseDto("Certificate request rejected");
     }
-
+    @GetMapping("/verify/{id}")
+    public ResponseDto verifyCertificateRequest(@PathVariable("id") String id){
+        return certificateRequestAgent.verifyCertificateRequest(id);
+    }
 
 }

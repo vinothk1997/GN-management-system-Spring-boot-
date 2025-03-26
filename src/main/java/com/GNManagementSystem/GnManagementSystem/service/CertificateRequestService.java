@@ -183,12 +183,12 @@ public class CertificateRequestService {
                 .collect(Collectors.joining("-"));
     }
 
-
-//    public ResponseDto verifyCertificateRequest(String id){
-//        CertificateRequest certificateRequest = certificateRequestRepository.findById(id).orElseThrow(()->new ServiceException("Certificate Id not found",ApplicationConstants.NOT_FOUND,HttpStatus.NOT_FOUND));
-//        if (certificateRequest){
-//    }
-//
-
+    public ResponseDto verifyCertificateRequest(String certificateNo){
+        CertificateRequest certificateRequest = certificateRequestRepository.findByVerificationNumber(certificateNo).orElseThrow(()->new ServiceException("Certificate Id not found",ApplicationConstants.NOT_FOUND,HttpStatus.NOT_FOUND));
+        if(certificateRequest.getVerificationNumber() !=null){
+            return new ResponseDto("Certificate Request verified");
+        }
+        throw new ServiceException("Certificate Request not verified", ApplicationConstants.NOT_FOUND,HttpStatus.NOT_FOUND);
+    }
 
 }
