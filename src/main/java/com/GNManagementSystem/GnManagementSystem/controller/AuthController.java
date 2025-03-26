@@ -7,6 +7,7 @@ import com.GNManagementSystem.GnManagementSystem.entity.User;
 import com.GNManagementSystem.GnManagementSystem.exception.ServiceException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -62,25 +63,28 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserDetailsDto> getUserFromSession() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info("auth,{}",authentication);
+    public ResponseEntity<UserDetailsDto> getUserFromSession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            throw new ServiceException("Session not found", ApplicationConstants.BAD_REQUEST, HttpStatus.UNAUTHORIZED);
+        }
 
-        if (authentication == null || !authentication.isAuthenticated() ||
-                !(authentication.getPrincipal() instanceof User user)) {
+        SecurityContext securityContext = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+        if (securityContext == null || securityContext.getAuthentication() == null ||
+                !(securityContext.getAuthentication().getPrincipal() instanceof User user)) {
             throw new ServiceException("User not authenticated", ApplicationConstants.BAD_REQUEST, HttpStatus.UNAUTHORIZED);
         }
 
-        return ResponseEntity.ok(UserDetailsDto.builder()
+        UserDetailsDto userDetails = UserDetailsDto.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .roles(List.of(user.getUserRoles().get(0).getRole()))
-                .build());
+                .build();
+
+        return ResponseEntity.ok(userDetails);
     }
-
-
     @GetMapping("/oauth2/success")
     public Map<String, Object> getUser(@AuthenticationPrincipal OAuth2User principal) {
         if (principal == null) {
