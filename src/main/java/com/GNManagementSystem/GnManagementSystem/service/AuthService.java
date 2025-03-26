@@ -80,8 +80,6 @@ public class AuthService {
         session.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
         httpServletResponse.setHeader("SessionId", session.getId());
 
-
-
         return UserDetailsDto.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
