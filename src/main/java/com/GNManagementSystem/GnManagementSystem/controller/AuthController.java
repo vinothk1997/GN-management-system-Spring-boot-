@@ -99,7 +99,7 @@ public class AuthController {
         try {
             UserDetailsDto userDetailsDto = authAgent.googleLogin(user, httpServletRequest, httpServletResponse);
             log.info("user detail,{}", userDetailsDto);
-            httpServletResponse.sendRedirect("http://localhost:4200/index");
+            httpServletResponse.sendRedirect("http://localhost:4200/login?email="+userDetailsDto.getEmail()+"&isVerified="+Boolean.TRUE);
 
 
         } catch (ServiceException ex) {
