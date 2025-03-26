@@ -62,23 +62,24 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserDetailsDto> getUserFromSession(HttpServletRequest request) {
-        SecurityContext securityContext = (SecurityContext) request.getSession()
-                .getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
+    public ResponseEntity<UserDetailsDto> getUserFromSession() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("auth,{}",authentication);
 
-        if (securityContext == null || securityContext.getAuthentication() == null ||
-                !(securityContext.getAuthentication().getPrincipal() instanceof User user)) {
+        if (authentication == null || !authentication.isAuthenticated() ||
+                !(authentication.getPrincipal() instanceof User user)) {
             throw new ServiceException("User not authenticated", ApplicationConstants.BAD_REQUEST, HttpStatus.UNAUTHORIZED);
         }
 
-        UserDetailsDto userDetailsDto = UserDetailsDto.builder()
+        return ResponseEntity.ok(UserDetailsDto.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-                .roles(List.of(user.getUserRoles().get(0).getRole())).build();
-        return ResponseEntity.ok(userDetailsDto);
+                .roles(List.of(user.getUserRoles().get(0).getRole()))
+                .build());
     }
+
 
     @GetMapping("/oauth2/success")
     public Map<String, Object> getUser(@AuthenticationPrincipal OAuth2User principal) {
